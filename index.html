@@ -1,0 +1,4007 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>رومل برگر - فست فود آنلاین افغانستان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* استایل‌های پایه */
+        :root {
+            --primary: #ff3e3e;
+            --primary-dark: #e00000;
+            --secondary: #ff9500;
+            --secondary-dark: #e68600;
+            --accent: #00c853;
+            --accent-dark: #00a843;
+            --dark: #1a1a1a;
+            --darker: #0d0d0d;
+            --light: #f8f9fa;
+            --text: #333;
+            --text-light: #6c757d;
+            --shadow: 0 6px 18px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-dark: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* هدر - بهینه‌شده برای موبایل */
+        header {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--secondary);
+            width: 100%;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .logo i {
+            color: var(--secondary);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        
+        /* منوی اصلی - مخفی در موبایل */
+        .main-nav {
+            display: none;
+        }
+        
+        /* منوی موبایل - بهینه‌شده */
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .mobile-nav {
+            display: block;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--gradient-dark);
+            z-index: 2000;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .close-mobile-menu {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        .mobile-nav ul {
+            list-style: none;
+        }
+        
+        .mobile-nav ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .mobile-nav ul li a:hover, .mobile-nav ul li a.active {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .mobile-nav-actions {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .mobile-user-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .mobile-user-actions button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .mobile-user-actions button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .mobile-user-info {
+            display: none;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-user-info.active {
+            display: block;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .cart-icon:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1) rotate(-5deg);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .user-actions {
+            display: none;
+        }
+        
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .admin-btn {
+            background: var(--gradient-accent) !important;
+        }
+        
+        /* انتخاب زبان - بهینه‌شده برای موبایل */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
+        }
+        
+        .language-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .language-btn.active, .language-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* بخش اصلی */
+        main {
+            padding: 1.5rem 0;
+            flex: 1;
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            max-width: 100%;
+            margin: 0 auto 1.5rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 6px 15px rgba(255, 62, 62, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(255, 62, 62, 0.5);
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+        }
+        
+        .btn-secondary {
+            background: var(--dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+        }
+        
+        .btn-accent {
+            background: var(--gradient-accent);
+            box-shadow: 0 6px 15px rgba(0, 200, 83, 0.4);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 8px 15px rgba(0, 200, 83, 0.5);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 0.8rem auto;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* بخش شعبه‌ها */
+        .branches-section {
+            margin: 3rem 0;
+        }
+        
+        .branches-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .branch-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+        
+        .branch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .branch-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .branch-info {
+            padding: 1.2rem;
+        }
+        
+        .branch-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .branch-details {
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+        }
+        
+        .branch-details p {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .branch-details i {
+            color: var(--primary);
+            width: 16px;
+        }
+        
+        .select-branch-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.3);
+            width: 100%;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        .select-branch-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(255, 62, 62, 0.4);
+        }
+        
+        .selected-branch {
+            border: 3px solid var(--accent);
+        }
+        
+        /* منوی محصولات */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .category-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: var(--transition);
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 62, 62, 0.4);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+        }
+        
+        .item-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--gradient);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .menu-item:hover .item-image {
+            transform: scale(1.05);
+        }
+        
+        .item-details {
+            padding: 1.2rem;
+        }
+        
+        .item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .item-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            min-height: 50px;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .item-price {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .add-to-cart {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 62, 62, 0.4);
+        }
+        
+        /* سبد خرید */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .cart-content {
+            background-color: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--primary);
+        }
+        
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-cart:hover {
+            color: var(--primary);
+            background: rgba(255, 62, 62, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 2px solid #f0f0f0;
+            transition: var(--transition);
+        }
+        
+        .cart-item:hover {
+            background: rgba(0,0,0,0.02);
+            border-radius: 8px;
+            padding: 1rem 0.8rem;
+        }
+        
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin: 0 1rem;
+        }
+        
+        .quantity-btn {
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .quantity-value {
+            margin: 0 0.8rem;
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .remove-item {
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .remove-item:hover {
+            color: white;
+            background: var(--primary);
+            transform: scale(1.1) rotate(90deg);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 1.3rem;
+            padding: 1.5rem 0;
+            border-top: 3px solid #eee;
+            margin-top: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .checkout-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 15px rgba(255, 62, 62, 0.4);
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 62, 62, 0.5);
+        }
+        
+        .checkout-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--text-light);
+        }
+        
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 1.2rem;
+            color: #ddd;
+        }
+        
+        /* فرم ورود */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-content {
+            background-color: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--primary);
+        }
+        
+        .login-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #eee;
+        }
+        
+        .close-login {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-login:hover {
+            color: var(--primary);
+            background: rgba(255, 62, 62, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .login-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .login-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            font-size: 0.9rem;
+        }
+        
+        .login-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background: #f9f9f9;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.2);
+            background: white;
+        }
+        
+        .login-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: var(--transition);
+            margin-top: 0.8rem;
+            box-shadow: 0 6px 15px rgba(255, 62, 62, 0.4);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 62, 62, 0.5);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 1.2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        
+        /* پنل مدیریت */
+        .admin-panel {
+            display: none;
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-top: 1.5rem;
+            border: 2px solid var(--accent);
+            width: 100%;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #eee;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+        
+        .admin-tab {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .admin-tab.active {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .admin-content {
+            display: none;
+        }
+        
+        .admin-content.active {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1.2rem;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 0.8rem;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-table th {
+            background: var(--gradient-accent);
+            color: white;
+            font-weight: 700;
+        }
+        
+        .admin-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-preparing {
+            background: #cce7ff;
+            color: #004085;
+        }
+        
+        .status-ready {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-left: 0.4rem;
+            font-size: 0.8rem;
+        }
+        
+        .btn-edit {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-update {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* فرم سفارش */
+        .order-form {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            max-width: 100%;
+            margin: 0 auto;
+            display: none;
+            border: 2px solid var(--primary);
+            animation: formAppear 0.5s ease;
+        }
+        
+        @keyframes formAppear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 10px;
+        }
+        
+        /* پیام تایید */
+        .order-confirmation {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow);
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            display: none;
+            border: 2px solid var(--accent);
+            animation: confirmationAppear 0.6s ease;
+        }
+        
+        @keyframes confirmationAppear {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,200,83,0.3));
+        }
+        
+        .order-details {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: right;
+            border: 2px dashed #ddd;
+        }
+        
+        .order-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            font-size: 1rem;
+        }
+        
+        .order-detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        /* پنل اعلانات */
+        .notification-panel {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 3000;
+            max-width: 90%;
+        }
+        
+        .notification {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-right: 5px solid var(--accent);
+            transform-origin: left center;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .notification-content h4 {
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .notification-content p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        
+        /* فوتر */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 2.5rem 0 1.5rem;
+            margin-top: 3rem;
+            width: 100%;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 100%;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+        }
+        
+        .footer-section ul li:hover {
+            transform: translateX(-3px);
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.2rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px) rotate(10deg);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* استایل‌های بهبود یافته برای موبایل */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .menu-categories {
+                gap: 5px;
+                padding-bottom: 5px;
+            }
+            
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .item-title {
+                font-size: 1.1rem;
+            }
+            
+            .item-description {
+                font-size: 0.85rem;
+                min-height: 40px;
+            }
+            
+            .item-price {
+                font-size: 1.1rem;
+            }
+            
+            .add-to-cart {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .branch-name {
+                font-size: 1.1rem;
+            }
+            
+            .branch-details p {
+                font-size: 0.85rem;
+            }
+            
+            .select-branch-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .cart-content, .login-content {
+                padding: 1rem;
+                margin: 10px;
+            }
+            
+            .form-group input, .form-group textarea, .form-group select {
+                font-size: 16px;
+            }
+            
+            .footer-section {
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.1rem;
+            }
+            
+            .notification {
+                padding: 0.8rem;
+                max-width: 95%;
+            }
+            
+            .notification-content h4 {
+                font-size: 0.85rem;
+            }
+            
+            .notification-content p {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .language-selector {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .header-actions {
+                margin-left: auto;
+            }
+            
+            .admin-table {
+                font-size: 0.8rem;
+            }
+            
+            .admin-table th, .admin-table td {
+                padding: 0.5rem;
+            }
+            
+            .action-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+                margin-left: 0.2rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .admin-table {
+                min-width: 600px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero {
+                padding: 4rem 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .branches-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .footer-content {
+                flex-direction: row;
+            }
+            
+            .footer-section {
+                min-width: auto;
+            }
+            
+            .form-row {
+                flex-direction: row;
+                gap: 15px;
+            }
+            
+            .form-actions {
+                flex-direction: row;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .main-nav {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .user-actions {
+                display: flex;
+                gap: 8px;
+            }
+            
+            .user-info {
+                display: flex;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .branches-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* جلوگیری از زوم روی موبایل هنگام کلیک */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر - بهینه‌شده برای موبایل -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- لوگو -->
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <span id="brandName">رومل برگر</span>
+                </div>
+                
+                <!-- بخش اقدامات کاربر - بهینه‌شده برای موبایل -->
+                <div class="header-actions">
+                    <!-- آیکون سبد خرید -->
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    
+                    <!-- انتخاب زبان -->
+                    <div class="language-selector">
+                        <button class="language-btn active" data-lang="fa">فا</button>
+                        <button class="language-btn" data-lang="en">En</button>
+                        <button class="language-btn" data-lang="ps">پښ</button>
+                    </div>
+                    
+                    <!-- منوی سه نقطه برای موبایل -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- منوی موبایل - بهینه‌شده -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span id="mobileBrandName">رومل برگر</span>
+            </div>
+            <button class="close-mobile-menu" id="closeMobileMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav-menu">
+            <ul>
+                <li><a href="#" class="active" data-i18n="home">صفحه اصلی</a></li>
+                <li><a href="#menu" data-i18n="menu">منو</a></li>
+                <li><a href="#branches" data-i18n="branches">شعبه‌ها</a></li>
+                <li><a href="#" data-i18n="about">درباره ما</a></li>
+                <li><a href="#" data-i18n="contact">تماس با ما</a></li>
+            </ul>
+        </nav>
+        
+        <!-- انتخاب زبان در منوی موبایل -->
+        <div class="language-selector" style="margin: 1.5rem 0; justify-content: center;">
+            <button class="language-btn active" data-lang="fa">فا</button>
+            <button class="language-btn" data-lang="en">En</button>
+            <button class="language-btn" data-lang="ps">پښ</button>
+        </div>
+        
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="user-avatar" style="margin: 0 auto 10px;">م</div>
+            <div id="mobileUserName">محمد</div>
+        </div>
+        
+        <div class="mobile-nav-actions">
+            <div class="mobile-user-actions" id="mobileUserActions">
+                <button id="mobileLoginBtn"><i class="fas fa-user"></i> <span data-i18n="login">ورود</span></button>
+                <button id="mobileRegisterBtn"><i class="fas fa-user-plus"></i> <span data-i18n="register">ثبت نام</span></button>
+                <button id="mobileAdminBtn" class="admin-btn"><i class="fas fa-cog"></i> <span data-i18n="admin">مدیریت</span></button>
+            </div>
+            <div class="mobile-user-actions" id="mobileLoggedInActions" style="display: none;">
+                <button id="mobileLogoutBtn" class="btn-secondary" data-i18n="logout">خروج</button>
+                <button id="mobileUserAdminBtn" class="admin-btn" data-i18n="admin">مدیریت</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- بخش اصلی -->
+    <main>
+        <div class="container">
+            <!-- بخش قهرمان -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 data-i18n="heroTitle">سفارش آنلاین فست فود در افغانستان</h1>
+                    <p data-i18n="heroDesc">با بهترین کیفیت و سریع‌ترین زمان تحویل، غذای مورد علاقه خود را سفارش دهید. ما با افتخار به مشتریان در سراسر افغانستان خدمت می‌کنیم.</p>
+                    <a href="#menu" class="btn" data-i18n="viewMenu">مشاهده منو</a>
+                </div>
+            </section>
+            
+            <!-- منوی محصولات -->
+            <section id="menu">
+                <h2 class="section-title" data-i18n="restaurantMenu">منوی رستوران</h2>
+                
+                <!-- دسته‌بندی‌ها -->
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all" data-i18n="all">همه</button>
+                    <button class="category-btn" data-category="burgers" data-i18n="burgers">برگرها</button>
+                    <button class="category-btn" data-category="pizzas" data-i18n="pizzas">پیتزاها</button>
+                    <button class="category-btn" data-category="sandwiches" data-i18n="sandwiches">ساندویچ‌ها</button>
+                    <button class="category-btn" data-category="kababs" data-i18n="kababs">کباب‌ها</button>
+                    <button class="category-btn" data-category="drinks" data-i18n="drinks">نوشیدنی‌ها</button>
+                </div>
+                
+                <!-- محصولات -->
+                <div class="menu-items" id="menuItems">
+                    <!-- محصولات با جاوااسکریپت پر می‌شوند -->
+                </div>
+            </section>
+            
+            <!-- بخش شعبه‌ها -->
+            <section class="branches-section" id="branches">
+                <h2 class="section-title" data-i18n="ourBranches">شعبه‌های ما</h2>
+                
+                <div class="branches-grid" id="branchesGrid">
+                    <!-- شعبه‌ها با جاوااسکریپت پر می‌شوند -->
+                </div>
+            </section>
+            
+            <!-- پنل مدیریت -->
+            <section class="admin-panel" id="adminPanel">
+                <div class="admin-header">
+                    <h2 class="section-title" data-i18n="adminPanel">پنل مدیریت</h2>
+                    <button class="btn btn-secondary" id="closeAdmin" data-i18n="closePanel">بستن پنل</button>
+                </div>
+                
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="dashboard" data-i18n="dashboard">داشبورد</div>
+                    <div class="admin-tab" data-tab="orders" data-i18n="orderManagement">مدیریت سفارشات</div>
+                    <div class="admin-tab" data-tab="products" data-i18n="productManagement">مدیریت محصولات</div>
+                    <div class="admin-tab" data-tab="users" data-i18n="userManagement">مدیریت کاربران</div>
+                    <div class="admin-tab" data-tab="branches" data-i18n="branchManagement">مدیریت شعبه‌ها</div>
+                </div>
+                
+                <!-- داشبورد -->
+                <div class="admin-content active" id="dashboardContent">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stat-value" id="todayOrders">۱۲۴</div>
+                            <div class="stat-label" data-i18n="todayOrders">سفارشات امروز</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-value" id="todayRevenue">۲,۵۴۰,۰۰۰</div>
+                            <div class="stat-label" data-i18n="todayRevenue">درآمد امروز (افغانی)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value" id="newUsers">۴۵</div>
+                            <div class="stat-label" data-i18n="newUsers">کاربران جدید</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="stat-value" id="activeProducts">۱۸</div>
+                            <div class="stat-label" data-i18n="activeProducts">محصولات فعال</div>
+                        </div>
+                    </div>
+                    
+                    <h3 data-i18n="recentOrders">سفارشات اخیر</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="orderCode">کد سفارش</th>
+                                    <th data-i18n="customer">مشتری</th>
+                                    <th data-i18n="branch">شعبه</th>
+                                    <th data-i18n="amount">مبلغ</th>
+                                    <th data-i18n="date">تاریخ</th>
+                                    <th data-i18n="status">وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable">
+                                <!-- سفارشات اخیر با جاوااسکریپت پر می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- مدیریت سفارشات -->
+                <div class="admin-content" id="ordersContent">
+                    <h3 data-i18n="allOrders">همه سفارشات</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="orderCode">کد سفارش</th>
+                                    <th data-i18n="customer">مشتری</th>
+                                    <th data-i18n="branch">شعبه</th>
+                                    <th data-i18n="products">محصولات</th>
+                                    <th data-i18n="amount">مبلغ</th>
+                                    <th data-i18n="date">تاریخ</th>
+                                    <th data-i18n="status">وضعیت</th>
+                                    <th data-i18n="actions">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- سفارشات با جاوااسکریپت پر می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- مدیریت محصولات -->
+                <div class="admin-content" id="productsContent">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 data-i18n="productManagement">مدیریت محصولات</h3>
+                        <button class="btn btn-accent" id="addProductBtn"><i class="fas fa-plus"></i> <span data-i18n="addProduct">افزودن محصول</span></button>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="image">تصویر</th>
+                                    <th data-i18n="productName">نام محصول</th>
+                                    <th data-i18n="category">دسته‌بندی</th>
+                                    <th data-i18n="price">قیمت</th>
+                                    <th data-i18n="status">وضعیت</th>
+                                    <th data-i18n="actions">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- محصولات با جاوااسکریپت پر می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- مدیریت کاربران -->
+                <div class="admin-content" id="usersContent">
+                    <h3 data-i18n="userManagement">مدیریت کاربران</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="userName">نام کاربر</th>
+                                    <th data-i18n="email">ایمیل</th>
+                                    <th data-i18n="phone">شماره تماس</th>
+                                    <th data-i18n="joinDate">تاریخ عضویت</th>
+                                    <th data-i18n="orderCount">تعداد سفارشات</th>
+                                    <th data-i18n="actions">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- کاربران با جاوااسکریپت پر می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- مدیریت شعبه‌ها -->
+                <div class="admin-content" id="branchesContent">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 data-i18n="branchManagement">مدیریت شعبه‌ها</h3>
+                        <button class="btn btn-accent" id="addBranchBtn"><i class="fas fa-plus"></i> <span data-i18n="addBranch">افزودن شعبه</span></button>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="branchName">نام شعبه</th>
+                                    <th data-i18n="address">آدرس</th>
+                                    <th data-i18n="phone">شماره تماس</th>
+                                    <th data-i18n="ordersCount">تعداد سفارشات</th>
+                                    <th data-i18n="status">وضعیت</th>
+                                    <th data-i18n="actions">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="branchesTableBody">
+                                <!-- شعبه‌ها با جاوااسکریپت پر می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- مودال سبد خرید -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> <span data-i18n="yourCart">سبد خرید شما</span></h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- آیتم‌های سبد خرید با جاوااسکریپت پر می‌شوند -->
+            </div>
+            <div class="cart-total">
+                <span data-i18n="total">جمع کل:</span>
+                <span id="cartTotal">0 افغانی</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i>
+                <span data-i18n="continueToCheckout">ادامه جهت ثبت سفارش</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- مودال ورود -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <div class="login-header">
+                <h2 data-i18n="loginRegister">ورود / ثبت نام</h2>
+                <button class="close-login" id="closeLogin">&times;</button>
+            </div>
+            
+            <div class="login-tabs">
+                <div class="login-tab active" data-tab="login" data-i18n="login">ورود</div>
+                <div class="login-tab" data-tab="register" data-i18n="register">ثبت نام</div>
+            </div>
+            
+            <form class="login-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail" data-i18n="email">ایمیل</label>
+                    <input type="email" id="loginEmail" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" data-i18n="password">رمز عبور</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="login-btn" data-i18n="loginToAccount">ورود به حساب</button>
+                <div class="form-footer">
+                    <a href="#" id="forgotPassword" data-i18n="forgotPassword">رمز عبور خود را فراموش کرده‌اید؟</a>
+                </div>
+            </form>
+            
+            <form class="login-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName" data-i18n="fullName">نام و نام خانوادگی</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail" data-i18n="email">ایمیل</label>
+                    <input type="email" id="registerEmail" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone" data-i18n="phone">شماره تماس</label>
+                    <input type="tel" id="registerPhone" placeholder="07XXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword" data-i18n="password">رمز عبور</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword" data-i18n="confirmPassword">تکرار رمز عبور</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="login-btn" data-i18n="register">ثبت نام</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- فرم سفارش -->
+    <div class="order-form" id="orderForm">
+        <h2 class="section-title" data-i18n="completeOrder">تکمیل اطلاعات سفارش</h2>
+        <form id="orderFormElement">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerName" data-i18n="fullName">نام و نام خانوادگی *</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone" data-i18n="phone">شماره تماس *</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="selectedBranch" data-i18n="selectBranch">انتخاب شعبه *</label>
+                <select id="selectedBranch" required>
+                    <option value="" data-i18n="selectBranch">شعبه مورد نظر را انتخاب کنید</option>
+                    <!-- شعبه‌ها با جاوااسکریپت پر می‌شوند -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="province" data-i18n="province">ولایت *</label>
+                <select id="province" required>
+                    <option value="" data-i18n="selectProvince">ولایت خود را انتخاب کنید</option>
+                    <option value="kabul">کابل</option>
+                    <option value="balkh">بلخ</option>
+                    <option value="herat">هرات</option>
+                    <option value="kandahar">قندهار</option>
+                    <option value="nangarhar">ننگرهار</option>
+                    <option value="kunduz">کندز</option>
+                    <option value="baghlan">بغلان</option>
+                    <option value="khost">خوست</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="customerAddress" data-i18n="deliveryAddress">آدرس دقیق تحویل *</label>
+                <textarea id="customerAddress" rows="3" required data-i18n="addressPlaceholder" placeholder="ناحیه، جاده، کوچه، پلاک، شماره تماس در صورت امکان"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="orderNotes" data-i18n="orderNotes">توضیحات سفارش (اختیاری)</label>
+                <textarea id="orderNotes" rows="3" data-i18n="notesPlaceholder" placeholder="مثلاً در صورت حساسیت غذایی یا درخواست تغییر در مواد اولیه"></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="backToCart" data-i18n="backToCart">بازگشت به سبد خرید</button>
+                <button type="submit" class="btn btn-primary" data-i18n="confirmOrder">تایید و ثبت سفارش</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- پیام تایید سفارش -->
+    <div class="order-confirmation" id="orderConfirmation">
+        <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2 data-i18n="orderSuccess">سفارش شما با موفقیت ثبت شد!</h2>
+        <p data-i18n="orderReceived">سفارش شما دریافت شده و در حال آماده‌سازی است. جزئیات سفارش شما:</p>
+        
+        <div class="order-details">
+            <div class="order-detail-item">
+                <span data-i18n="orderCode">کد پیگیری سفارش:</span>
+                <strong id="orderCode">FS-12345</strong>
+            </div>
+            <div class="order-detail-item">
+                <span data-i18n="branch">شعبه:</span>
+                <strong id="orderBranch">شهر نو</strong>
+            </div>
+            <div class="order-detail-item">
+                <span data-i18n="deliveryTime">زمان تحویل تقریبی:</span>
+                <strong>45-60 دقیقه</strong>
+            </div>
+            <div class="order-detail-item">
+                <span data-i18n="totalAmount">مبلغ قابل پرداخت:</span>
+                <strong id="orderTotal">0 افغانی</strong>
+            </div>
+            <div class="order-detail-item">
+                <span data-i18n="paymentMethod">روش پرداخت:</span>
+                <strong data-i18n="cashOnDelivery">نقدی upon delivery</strong>
+            </div>
+        </div>
+        
+        <p data-i18n="trackOrder">برای پیگیری سفارش با شماره <strong id="branchPhone">۰۷۰۱۲۳۴۵۶۷</strong> تماس بگیرید.</p>
+        <button class="btn btn-primary" id="newOrderBtn" data-i18n="newOrder">سفارش جدید</button>
+    </div>
+
+    <!-- پنل اعلانات -->
+    <div class="notification-panel" id="notificationPanel">
+        <!-- اعلانات با جاوااسکریپت اضافه می‌شوند -->
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-i18n="aboutUs">درباره ما</h3>
+                    <p data-i18n="aboutDesc">رستوران رومل برگر با هدف ارائه غذاهای با کیفیت و خدمات سریع به مشتریان عزیز در سراسر افغانستان فعالیت می‌کند. ما به تازگی، سرعت و کیفیت متعهد هستیم.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="quickLinks">لینک‌های سریع</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> <span data-i18n="home">صفحه اصلی</span></a></li>
+                        <li><a href="#menu"><i class="fas fa-chevron-left"></i> <span data-i18n="menu">منو</span></a></li>
+                        <li><a href="#branches"><i class="fas fa-chevron-left"></i> <span data-i18n="branches">شعبه‌ها</span></a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> <span data-i18n="about">درباره ما</span></a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> <span data-i18n="contact">تماس با ما</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="contactUs">تماس با ما</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <span data-i18n="address">کابل، افغانستان</span></p>
+                    <p><i class="fas fa-phone"></i> ۰۷۰۱۲۳۴۵۶۷ - ۰۷۰۹۸۷۶۵۴۳</p>
+                    <p><i class="fas fa-envelope"></i> info@rommelburger.af</p>
+                    <p><i class="fas fa-clock"></i> <span data-i18n="workingHours">همه روزه ۹:۰۰ صبح تا ۱۲:۰۰ شب</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="copyright">تمامی حقوق محفوظ است &copy; ۱۴۰۲ رومل برگر افغانستان</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // داده‌های چندزبانه
+        const translations = {
+            fa: {
+                // برند
+                brandName: "رومل برگر",
+                
+                // منو
+                home: "صفحه اصلی",
+                menu: "منو",
+                branches: "شعبه‌ها",
+                about: "درباره ما",
+                contact: "تماس با ما",
+                
+                // دسته‌بندی‌ها
+                all: "همه",
+                burgers: "برگرها",
+                pizzas: "پیتزاها",
+                sandwiches: "ساندویچ‌ها",
+                kababs: "کباب‌ها",
+                drinks: "نوشیدنی‌ها",
+                
+                // هیرو
+                heroTitle: "سفارش آنلاین فست فود در افغانستان",
+                heroDesc: "با بهترین کیفیت و سریع‌ترین زمان تحویل، غذای مورد علاقه خود را سفارش دهید. ما با افتخار به مشتریان در سراسر افغانستان خدمت می‌کنیم.",
+                viewMenu: "مشاهده منو",
+                
+                // منوی رستوران
+                restaurantMenu: "منوی رستوران",
+                
+                // شعبه‌ها
+                ourBranches: "شعبه‌های ما",
+                selectBranch: "انتخاب شعبه",
+                branch: "شعبه",
+                branchName: "نام شعبه",
+                address: "آدرس",
+                phone: "شماره تماس",
+                ordersCount: "تعداد سفارشات",
+                branchManagement: "مدیریت شعبه‌ها",
+                addBranch: "افزودن شعبه",
+                
+                // سبد خرید
+                yourCart: "سبد خرید شما",
+                total: "جمع کل:",
+                continueToCheckout: "ادامه جهت ثبت سفارش",
+                
+                // فرم ورود
+                loginRegister: "ورود / ثبت نام",
+                login: "ورود",
+                register: "ثبت نام",
+                email: "ایمیل",
+                password: "رمز عبور",
+                loginToAccount: "ورود به حساب",
+                forgotPassword: "رمز عبور خود را فراموش کرده‌اید؟",
+                fullName: "نام و نام خانوادگی",
+                phone: "شماره تماس",
+                confirmPassword: "تکرار رمز عبور",
+                
+                // فرم سفارش
+                completeOrder: "تکمیل اطلاعات سفارش",
+                province: "ولایت",
+                selectProvince: "ولایت خود را انتخاب کنید",
+                deliveryAddress: "آدرس دقیق تحویل",
+                addressPlaceholder: "ناحیه، جاده، کوچه، پلاک، شماره تماس در صورت امکان",
+                orderNotes: "توضیحات سفارش (اختیاری)",
+                notesPlaceholder: "مثلاً در صورت حساسیت غذایی یا درخواست تغییر در مواد اولیه",
+                backToCart: "بازگشت به سبد خرید",
+                confirmOrder: "تایید و ثبت سفارش",
+                
+                // تایید سفارش
+                orderSuccess: "سفارش شما با موفقیت ثبت شد!",
+                orderReceived: "سفارش شما دریافت شده و در حال آماده‌سازی است. جزئیات سفارش شما:",
+                orderCode: "کد پیگیری سفارش:",
+                deliveryTime: "زمان تحویل تقریبی:",
+                totalAmount: "مبلغ قابل پرداخت:",
+                paymentMethod: "روش پرداخت:",
+                cashOnDelivery: "نقدی upon delivery",
+                trackOrder: "برای پیگیری سفارش با شماره",
+                newOrder: "سفارش جدید",
+                
+                // پنل مدیریت
+                adminPanel: "پنل مدیریت",
+                closePanel: "بستن پنل",
+                dashboard: "داشبورد",
+                orderManagement: "مدیریت سفارشات",
+                productManagement: "مدیریت محصولات",
+                userManagement: "مدیریت کاربران",
+                todayOrders: "سفارشات امروز",
+                todayRevenue: "درآمد امروز (افغانی)",
+                newUsers: "کاربران جدید",
+                activeProducts: "محصولات فعال",
+                recentOrders: "سفارشات اخیر",
+                allOrders: "همه سفارشات",
+                orderCode: "کد سفارش",
+                customer: "مشتری",
+                amount: "مبلغ",
+                date: "تاریخ",
+                status: "وضعیت",
+                products: "محصولات",
+                actions: "عملیات",
+                image: "تصویر",
+                productName: "نام محصول",
+                category: "دسته‌بندی",
+                price: "قیمت",
+                userName: "نام کاربر",
+                joinDate: "تاریخ عضویت",
+                orderCount: "تعداد سفارشات",
+                addProduct: "افزودن محصول",
+                
+                // دکمه‌های کاربر
+                admin: "مدیریت",
+                logout: "خروج",
+                
+                // فوتر
+                aboutUs: "درباره ما",
+                aboutDesc: "رستوران رومل برگر با هدف ارائه غذاهای با کیفیت و خدمات سریع به مشتریان عزیز در سراسر افغانستان فعالیت می‌کند. ما به تازگی، سرعت و کیفیت متعهد هستیم.",
+                quickLinks: "لینک‌های سریع",
+                contactUs: "تماس با ما",
+                address: "کابل، افغانستان",
+                workingHours: "همه روزه ۹:۰۰ صبح تا ۱۲:۰۰ شب",
+                copyright: "تمامی حقوق محفوظ است &copy; ۱۴۰۲ رومل برگر افغانستان"
+            },
+            en: {
+                // برند
+                brandName: "Rommel Burger",
+                
+                // منو
+                home: "Home",
+                menu: "Menu",
+                branches: "Branches",
+                about: "About Us",
+                contact: "Contact Us",
+                
+                // دسته‌بندی‌ها
+                all: "All",
+                burgers: "Burgers",
+                pizzas: "Pizzas",
+                sandwiches: "Sandwiches",
+                kababs: "Kababs",
+                drinks: "Drinks",
+                
+                // هیرو
+                heroTitle: "Online Fast Food Ordering in Afghanistan",
+                heroDesc: "Order your favorite food with the best quality and fastest delivery time. We proudly serve customers throughout Afghanistan.",
+                viewMenu: "View Menu",
+                
+                // منوی رستوران
+                restaurantMenu: "Restaurant Menu",
+                
+                // شعبه‌ها
+                ourBranches: "Our Branches",
+                selectBranch: "Select Branch",
+                branch: "Branch",
+                branchName: "Branch Name",
+                address: "Address",
+                phone: "Phone",
+                ordersCount: "Orders Count",
+                branchManagement: "Branch Management",
+                addBranch: "Add Branch",
+                
+                // سبد خرید
+                yourCart: "Your Cart",
+                total: "Total:",
+                continueToCheckout: "Continue to Checkout",
+                
+                // فرم ورود
+                loginRegister: "Login / Register",
+                login: "Login",
+                register: "Register",
+                email: "Email",
+                password: "Password",
+                loginToAccount: "Login to Account",
+                forgotPassword: "Forgot your password?",
+                fullName: "Full Name",
+                phone: "Phone Number",
+                confirmPassword: "Confirm Password",
+                
+                // فرم سفارش
+                completeOrder: "Complete Order Information",
+                province: "Province",
+                selectProvince: "Select your province",
+                deliveryAddress: "Delivery Address",
+                addressPlaceholder: "Area, Road, Alley, Plate number, Phone number if possible",
+                orderNotes: "Order Notes (Optional)",
+                notesPlaceholder: "e.g., Food allergies or ingredient change requests",
+                backToCart: "Back to Cart",
+                confirmOrder: "Confirm and Place Order",
+                
+                // تایید سفارش
+                orderSuccess: "Your order has been successfully placed!",
+                orderReceived: "Your order has been received and is being prepared. Your order details:",
+                orderCode: "Order Tracking Code:",
+                deliveryTime: "Estimated Delivery Time:",
+                totalAmount: "Total Amount:",
+                paymentMethod: "Payment Method:",
+                cashOnDelivery: "Cash on delivery",
+                trackOrder: "To track your order, call",
+                newOrder: "New Order",
+                
+                // پنل مدیریت
+                adminPanel: "Admin Panel",
+                closePanel: "Close Panel",
+                dashboard: "Dashboard",
+                orderManagement: "Order Management",
+                productManagement: "Product Management",
+                userManagement: "User Management",
+                todayOrders: "Today's Orders",
+                todayRevenue: "Today's Revenue (AFN)",
+                newUsers: "New Users",
+                activeProducts: "Active Products",
+                recentOrders: "Recent Orders",
+                allOrders: "All Orders",
+                orderCode: "Order Code",
+                customer: "Customer",
+                amount: "Amount",
+                date: "Date",
+                status: "Status",
+                products: "Products",
+                actions: "Actions",
+                image: "Image",
+                productName: "Product Name",
+                category: "Category",
+                price: "Price",
+                userName: "User Name",
+                joinDate: "Join Date",
+                orderCount: "Order Count",
+                addProduct: "Add Product",
+                
+                // دکمه‌های کاربر
+                admin: "Admin",
+                logout: "Logout",
+                
+                // فوتر
+                aboutUs: "About Us",
+                aboutDesc: "Rommel Burger restaurant aims to provide quality food and fast service to our valued customers throughout Afghanistan. We are committed to freshness, speed and quality.",
+                quickLinks: "Quick Links",
+                contactUs: "Contact Us",
+                address: "Kabul, Afghanistan",
+                workingHours: "Daily 9:00 AM to 12:00 PM",
+                copyright: "All rights reserved &copy; 2023 Rommel Burger Afghanistan"
+            },
+            ps: {
+                // برند
+                brandName: "رومل برگر",
+                
+                // منو
+                home: "اصلي پاڼه",
+                menu: "منو",
+                branches: "څانګې",
+                about: "زموږ په اړه",
+                contact: "زموږ سره اړیکه",
+                
+                // دسته‌بندی‌ها
+                all: "ټول",
+                burgers: "برگرونه",
+                pizzas: "پیزې",
+                sandwiches: "سینډویچونه",
+                kababs: "کبابونه",
+                drinks: "څښاکونه",
+                
+                // هیرو
+                heroTitle: "په افغانستان کې د فاسټ فوډ آنلاین امر",
+                heroDesc: "ستاسو د خوښې خواړه د غوره کیفیت او ګړندي وړاندې کولو سره امر کړئ. مونږ په ټول افغانستان کې د پیرودونکو خدمت کولو لپاره په فخر سره خدمت کوو.",
+                viewMenu: "منو وګورئ",
+                
+                // منوی رستوران
+                restaurantMenu: "د رستوران منو",
+                
+                // شعبه‌ها
+                ourBranches: "زموږ څانګې",
+                selectBranch: "څانګه وټاکئ",
+                branch: "څانګه",
+                branchName: "د څانګې نوم",
+                address: "پته",
+                phone: "د تلیفون شمیره",
+                ordersCount: "د امرونو شمیر",
+                branchManagement: "د څانګو مدیریت",
+                addBranch: "څانګه اضافه کړئ",
+                
+                // سبد خرید
+                yourCart: "ستاسو کارټ",
+                total: "ټول:",
+                continueToCheckout: "د امر لپاره دوام ورکړئ",
+                
+                // فرم ورود
+                loginRegister: "ننوتل / نوملیکنه",
+                login: "ننوتل",
+                register: "نوملیکنه",
+                email: "ایمیل",
+                password: "پاسورډ",
+                loginToAccount: "حساب ته ننوتل",
+                forgotPassword: "خپل پاسورډ هیر کړی؟",
+                fullName: "بشپړ نوم",
+                phone: "د تلیفون شمیره",
+                confirmPassword: "پاسورډ تایید کړئ",
+                
+                // فرم سفارش
+                completeOrder: "د امر معلومات بشپړ کړئ",
+                province: "ولایت",
+                selectProvince: "خپل ولایت وټاکئ",
+                deliveryAddress: "د وړاندې کولو پته",
+                addressPlaceholder: "سیمه، لاره، کوڅه، پلاک شمیره، د تلیفون شمیره که ممکن وي",
+                orderNotes: "د امر توضیحات (اختیاري)",
+                notesPlaceholder: "لکه، د خواړو حساسیت یا د موادو د بدلون غوښتنې",
+                backToCart: "کارټ ته راستنیدل",
+                confirmOrder: "تایید او امر ثبت کړئ",
+                
+                // تایید سفارش
+                orderSuccess: "ستاسو امر په بریالیتوب سره ثبت شو!",
+                orderReceived: "ستاسو امر ترلاسه شو او چمتو کیږي. ستاسو د امر جزئیات:",
+                orderCode: "د امر تعقیب کوډ:",
+                deliveryTime: "اټکل شوی وړاندې کولو وخت:",
+                totalAmount: "د تادیه وړ مقدار:",
+                paymentMethod: "د تادیه طریق:",
+                cashOnDelivery: "په تحویلي کې نغدي",
+                trackOrder: "د خپل امر تعقیب لپاره، زنګ ووهئ",
+                newOrder: "نوی امر",
+                
+                // پنل مدیریت
+                adminPanel: "د مدیر پینل",
+                closePanel: "پینل بند کړئ",
+                dashboard: "ډشبورډ",
+                orderManagement: "د امر مدیریت",
+                productManagement: "د محصول مدیریت",
+                userManagement: "د کاروونکو مدیریت",
+                todayOrders: "نننی امرونه",
+                todayRevenue: "نننی عاید (افغانۍ)",
+                newUsers: "نوي کاروونکي",
+                activeProducts: "فعال محصولات",
+                recentOrders: "وروستي امرونه",
+                allOrders: "ټول امرونه",
+                orderCode: "د امر کوډ",
+                customer: "پیرودونکی",
+                amount: "مقدار",
+                date: "نیټه",
+                status: "حالت",
+                products: "محصولات",
+                actions: "کړنې",
+                image: "انځور",
+                productName: "د محصول نوم",
+                category: "کټګوري",
+                price: "قیمت",
+                userName: "د کارن نوم",
+                joinDate: "د غړیتوب نیټه",
+                orderCount: "د امرونو شمیر",
+                addProduct: "محصول اضافه کړئ",
+                
+                // دکمه‌های کاربر
+                admin: "مدیریت",
+                logout: "وتل",
+                
+                // فوتر
+                aboutUs: "زموږ په اړه",
+                aboutDesc: "رومل برگر رستوران په افغانستان کې د ارزښتمن پیرودونکو لپاره د کیفیتي خواړو او ګړندي خدمت وړاندې کولو هدف لري. مونږ تازه والي، سرعت او کیفیت ته متعهد یو.",
+                quickLinks: "ګړندي لینکونه",
+                contactUs: "زموږ سره اړیکه",
+                address: "کابل، افغانستان",
+                workingHours: "هره ورځ له ۹:۰۰ سهار څخه تر ۱۲:۰۰ شپې",
+                copyright: "ټول حقونه خوندي دي &copy; ۱۴۰۲ رومل برگر افغانستان"
+            }
+        };
+
+        // داده‌های منو
+        const menuItems = [
+            {
+                id: 1,
+                name: {
+                    fa: "برگر کلاسیک",
+                    en: "Classic Burger",
+                    ps: "کلاسیک برگر"
+                },
+                description: {
+                    fa: "برگر گوشت گاو با پنیر چدار، کاهو و گوجه فرنگی تازه",
+                    en: "Beef burger with cheddar cheese, lettuce and fresh tomatoes",
+                    ps: "د غوايي غوښې برگر د چېډر پنیر، سلاد او تازه ټماټرونو سره"
+                },
+                price: 180,
+                category: "burgers",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: {
+                    fa: "پرفروش",
+                    en: "Bestseller",
+                    ps: "ډیر خرڅ"
+                },
+                active: true
+            },
+            {
+                id: 2,
+                name: {
+                    fa: "برگر دبل",
+                    en: "Double Burger",
+                    ps: "دبل برگر"
+                },
+                description: {
+                    fa: "دو عدد پتی گوشت گاو با پنیر و سس مخصوص",
+                    en: "Two beef patties with cheese and special sauce",
+                    ps: "دوه غوښې پاټۍ د پنیر او ځانګړي ساس سره"
+                },
+                price: 250,
+                category: "burgers",
+                image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 3,
+                name: {
+                    fa: "برگر مرغ",
+                    en: "Chicken Burger",
+                    ps: "چرګ برگر"
+                },
+                description: {
+                    fa: "برگر مرغ تازه با سس مخصوص و سبزیجات",
+                    en: "Fresh chicken burger with special sauce and vegetables",
+                    ps: "تازه چرګ برگر د ځانګړي ساس او سبزیجاتو سره"
+                },
+                price: 200,
+                category: "burgers",
+                image: "https://images.unsplash.com/photo-1606755962773-d324e74534a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: {
+                    fa: "جدید",
+                    en: "New",
+                    ps: "نوی"
+                },
+                active: true
+            },
+            {
+                id: 4,
+                name: {
+                    fa: "برگر ویژه",
+                    en: "Special Burger",
+                    ps: "ځانګړی برگر"
+                },
+                description: {
+                    fa: "برگر ویژه با پنیر، قارچ و سس باربیکیو",
+                    en: "Special burger with cheese, mushrooms and barbecue sauce",
+                    ps: "ځانګړی برگر د پنیر، غومبې او باربیکیو ساس سره"
+                },
+                price: 300,
+                category: "burgers",
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 5,
+                name: {
+                    fa: "پیتزا مارجریتا",
+                    en: "Margherita Pizza",
+                    ps: "مارګریټا پیزا"
+                },
+                description: {
+                    fa: "پیتزا با سس گوجه، پنیر موزارلا و ریحان تازه",
+                    en: "Pizza with tomato sauce, mozzarella cheese and fresh basil",
+                    ps: "پیزا د ټماټو ساس، موزارلا پنیر او تازه ریحان سره"
+                },
+                price: 320,
+                category: "pizzas",
+                image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: {
+                    fa: "جدید",
+                    en: "New",
+                    ps: "نوی"
+                },
+                active: true
+            },
+            {
+                id: 6,
+                name: {
+                    fa: "پیتزا پپرونی",
+                    en: "Pepperoni Pizza",
+                    ps: "پپروني پیزا"
+                },
+                description: {
+                    fa: "پیتزا با پنیر موزارلا و پپرونی تند",
+                    en: "Pizza with mozzarella cheese and spicy pepperoni",
+                    ps: "پیزا د موزارلا پنیر او تند پپروني سره"
+                },
+                price: 350,
+                category: "pizzas",
+                image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 7,
+                name: {
+                    fa: "ساندویچ مرغ",
+                    en: "Chicken Sandwich",
+                    ps: "چرګ سینډویچ"
+                },
+                description: {
+                    fa: "ساندویچ مرغ گریل شده با سبزیجات تازه و سس مخصوص",
+                    en: "Grilled chicken sandwich with fresh vegetables and special sauce",
+                    ps: "ګرل شوی چرګ سینډویچ د تازه سبزیجاتو او ځانګړي ساس سره"
+                },
+                price: 150,
+                category: "sandwiches",
+                image: "https://images.unsplash.com/photo-1553909489-cd47e0907980?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 8,
+                name: {
+                    fa: "ساندویچ تن",
+                    en: "Tuna Sandwich",
+                    ps: "تون ماهي سینډویچ"
+                },
+                description: {
+                    fa: "ساندویچ ماهی تن با سس مایونز و سبزیجات تازه",
+                    en: "Tuna fish sandwich with mayonnaise sauce and fresh vegetables",
+                    ps: "تون ماهي سینډویچ د مایونز ساس او تازه سبزیجاتو سره"
+                },
+                price: 120,
+                category: "sandwiches",
+                image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 9,
+                name: {
+                    fa: "کباب کوبیده",
+                    en: "Koobideh Kebab",
+                    ps: "کوبیده کباب"
+                },
+                description: {
+                    fa: "کباب کوبیده با برنج ایرانی و گوجه کبابی",
+                    en: "Koobideh kebab with Iranian rice and grilled tomatoes",
+                    ps: "کوبیده کباب د ایرانی وریجو او ګرل شوی ټماټرونو سره"
+                },
+                price: 280,
+                category: "kababs",
+                image: "https://images.unsplash.com/photo-1598214886806-c87b84b7078b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: {
+                    fa: "ویژه",
+                    en: "Special",
+                    ps: "ځانګړی"
+                },
+                active: true
+            },
+            {
+                id: 10,
+                name: {
+                    fa: "کباب بخاری",
+                    en: "Balkh Kebab",
+                    ps: "بلخي کباب"
+                },
+                description: {
+                    fa: "کباب بخاری با نان تازه و سبزیجات",
+                    en: "Balkh kebab with fresh bread and vegetables",
+                    ps: "بلخي کباب د تازه ډوډۍ او سبزیجاتو سره"
+                },
+                price: 220,
+                category: "kababs",
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 11,
+                name: {
+                    fa: "نوشابه",
+                    en: "Soda",
+                    ps: "سوډا"
+                },
+                description: {
+                    fa: "نوشابه گازدار در طعم‌های مختلف",
+                    en: "Carbonated soda in different flavors",
+                    ps: "ګاز لرونکی سوډا په مختلفو خوندونو کې"
+                },
+                price: 40,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            },
+            {
+                id: 12,
+                name: {
+                    fa: "آبمیوه طبیعی",
+                    en: "Natural Juice",
+                    ps: "طبیعي جوس"
+                },
+                description: {
+                    fa: "آبمیوه تازه و طبیعی بدون مواد افزودنی",
+                    en: "Fresh and natural juice without additives",
+                    ps: "تازه او طبیعي جوس پرته له اضافي موادو"
+                },
+                price: 60,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                active: true
+            }
+        ];
+
+        // داده‌های شعبه‌ها
+        const branches = [
+            {
+                id: 1,
+                name: {
+                    fa: "شهر نو",
+                    en: "Shahr-e-Naw",
+                    ps: "شهر نو"
+                },
+                address: {
+                    fa: "کابل، شهر نو، جاده میوند، نزدیک هوتل انترکانتیننتال",
+                    en: "Kabul, Shahr-e-Naw, Maiwand Road, near Intercontinental Hotel",
+                    ps: "کابل، شهر نو، د میوند لاره، د انترکانتیننتال هوتل ته نږدې"
+                },
+                phone: "0701234567",
+                image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                ordersCount: 124,
+                active: true
+            },
+            {
+                id: 2,
+                name: {
+                    fa: "تایمنی",
+                    en: "Taimani",
+                    ps: "تایمني"
+                },
+                address: {
+                    fa: "کابل، تایمنی، جاده چهارم، نزدیک پارک تایمنی",
+                    en: "Kabul, Taimani, 4th Road, near Taimani Park",
+                    ps: "کابل، تایمني، څلورمه لاره، د تایمني پارک ته نږدې"
+                },
+                phone: "0702345678",
+                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                ordersCount: 89,
+                active: true
+            },
+            {
+                id: 3,
+                name: {
+                    fa: "خیرخانه",
+                    en: "Khair Khana",
+                    ps: "خیرخانه"
+                },
+                address: {
+                    fa: "کابل، خیرخانه، جاده اصلی، نزدیک مرکز خرید خیرخانه",
+                    en: "Kabul, Khair Khana, Main Road, near Khair Khana Shopping Center",
+                    ps: "کابل، خیرخانه، اصلي لاره، د خیرخانه د پلورنځي مرکز ته نږدې"
+                },
+                phone: "0703456789",
+                image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                ordersCount: 67,
+                active: true
+            }
+        ];
+
+        // داده‌های سفارشات
+        let orders = [
+            {
+                id: 1,
+                code: "FS-58421",
+                customer: "احمد محمدی",
+                branch: "شهر نو",
+                items: [
+                    { name: "برگر کلاسیک", quantity: 2, price: 180 },
+                    { name: "نوشابه", quantity: 2, price: 40 }
+                ],
+                total: 440,
+                date: "۱۴۰۲/۰۵/۱۵",
+                status: "delivered",
+                address: "کابل، ناحیه ۴، جاده میوند، کوچه ۱۲"
+            },
+            {
+                id: 2,
+                code: "FS-58420",
+                customer: "زهرا کریمی",
+                branch: "تایمنی",
+                items: [
+                    { name: "پیتزا پپرونی", quantity: 1, price: 350 },
+                    { name: "برگر مرغ", quantity: 1, price: 200 },
+                    { name: "آبمیوه طبیعی", quantity: 2, price: 60 }
+                ],
+                total: 730,
+                date: "۱۴۰۲/۰۵/۱۵",
+                status: "ready",
+                address: "کابل، ناحیه ۱۰، جاده کارته سخی"
+            },
+            {
+                id: 3,
+                code: "FS-58419",
+                customer: "محمد حسینی",
+                branch: "خیرخانه",
+                items: [
+                    { name: "ساندویچ مرغ", quantity: 2, price: 150 },
+                    { name: "نوشابه", quantity: 1, price: 40 }
+                ],
+                total: 340,
+                date: "۱۴۰۲/۰۵/۱۵",
+                status: "preparing",
+                address: "کابل، ناحیه ۶، جاده ده افغانان"
+            }
+        ];
+
+        // داده‌های کاربران
+        let users = [
+            {
+                id: 1,
+                name: "احمد محمدی",
+                email: "ahmad@example.com",
+                phone: "0701234567",
+                joinDate: "۱۴۰۲/۰۳/۱۲",
+                ordersCount: 8
+            },
+            {
+                id: 2,
+                name: "زهرا کریمی",
+                email: "zahra@example.com",
+                phone: "0702345678",
+                joinDate: "۱۴۰۲/۰۴/۰۵",
+                ordersCount: 5
+            },
+            {
+                id: 3,
+                name: "محمد حسینی",
+                email: "mohammad@example.com",
+                phone: "0703456789",
+                joinDate: "۱۴۰۲/۰۲/۲۰",
+                ordersCount: 12
+            }
+        ];
+
+        // متغیرهای گلوبال
+        let cart = [];
+        let currentCategory = 'all';
+        let orderCode = '';
+        let currentUser = null;
+        let isAdmin = false;
+        let currentLanguage = 'fa';
+        let selectedBranch = null;
+
+        // المنت‌های DOM
+        const menuItemsContainer = document.getElementById('menuItems');
+        const branchesGrid = document.getElementById('branchesGrid');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const orderForm = document.getElementById('orderForm');
+        const orderFormElement = document.getElementById('orderFormElement');
+        const backToCart = document.getElementById('backToCart');
+        const orderConfirmation = document.getElementById('orderConfirmation');
+        const newOrderBtn = document.getElementById('newOrderBtn');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const loginModal = document.getElementById('loginModal');
+        const closeLogin = document.getElementById('closeLogin');
+        const loginTabs = document.querySelectorAll('.login-tab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginFormElement = document.getElementById('loginForm');
+        const registerFormElement = document.getElementById('registerForm');
+        const orderTotal = document.getElementById('orderTotal');
+        const orderBranch = document.getElementById('orderBranch');
+        const branchPhone = document.getElementById('branchPhone');
+        const adminPanel = document.getElementById('adminPanel');
+        const closeAdmin = document.getElementById('closeAdmin');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const adminContents = document.querySelectorAll('.admin-content');
+        const ordersTableBody = document.getElementById('ordersTableBody');
+        const productsTableBody = document.getElementById('productsTableBody');
+        const usersTableBody = document.getElementById('usersTableBody');
+        const branchesTableBody = document.getElementById('branchesTableBody');
+        const recentOrdersTable = document.getElementById('recentOrdersTable');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const addBranchBtn = document.getElementById('addBranchBtn');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+        const mobileAdminBtn = document.getElementById('mobileAdminBtn');
+        const mobileUserInfo = document.getElementById('mobileUserInfo');
+        const mobileUserName = document.getElementById('mobileUserName');
+        const mobileUserActions = document.getElementById('mobileUserActions');
+        const mobileLoggedInActions = document.getElementById('mobileLoggedInActions');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        const mobileUserAdminBtn = document.getElementById('mobileUserAdminBtn');
+        const todayOrders = document.getElementById('todayOrders');
+        const todayRevenue = document.getElementById('todayRevenue');
+        const newUsers = document.getElementById('newUsers');
+        const activeProducts = document.getElementById('activeProducts');
+        const languageButtons = document.querySelectorAll('.language-btn');
+        const brandName = document.getElementById('brandName');
+        const mobileBrandName = document.getElementById('mobileBrandName');
+        const selectedBranchSelect = document.getElementById('selectedBranch');
+
+        // تغییر زبان
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // به‌روزرسانی دکمه‌های زبان
+            languageButtons.forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // به‌روزرسانی متن‌ها
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // به‌روزرسانی نام برند
+            brandName.textContent = translations[lang].brandName;
+            mobileBrandName.textContent = translations[lang].brandName;
+            
+            // به‌روزرسانی منو
+            displayMenuItems();
+            
+            // به‌روزرسانی شعبه‌ها
+            displayBranches();
+            
+            // به‌روزرسانی سبد خرید
+            updateCart();
+            
+            // به‌روزرسانی پنل مدیریت
+            if (isAdmin) {
+                displayOrdersInAdmin();
+                displayProductsInAdmin();
+                displayUsersInAdmin();
+                displayBranchesInAdmin();
+            }
+            
+            // تغییر جهت متن
+            if (lang === 'en') {
+                document.body.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+            } else {
+                document.body.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', lang);
+            }
+        }
+
+        // نمایش منوی محصولات
+        function displayMenuItems() {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = currentCategory === 'all' 
+                ? menuItems.filter(item => item.active) 
+                : menuItems.filter(item => item.category === currentCategory && item.active);
+            
+            if (filteredItems.length === 0) {
+                menuItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-search"></i>
+                        <p>${translations[currentLanguage].noProducts || "محصولی در این دسته‌بندی یافت نشد"}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.className = 'menu-item';
+                menuItemElement.innerHTML = `
+                    ${item.badge ? `<div class="item-badge">${item.badge[currentLanguage]}</div>` : ''}
+                    <img src="${item.image}" alt="${item.name[currentLanguage]}" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-title">${item.name[currentLanguage]}</h3>
+                        <p class="item-description">${item.description[currentLanguage]}</p>
+                        <div class="item-footer">
+                            <span class="item-price">${item.price} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</span>
+                            <button class="add-to-cart" data-id="${item.id}">
+                                <i class="fas fa-cart-plus"></i>
+                                ${translations[currentLanguage].addToCart || "افزودن"}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+            
+            // اضافه کردن ایونت به دکمه‌های افزودن به سبد
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
+                    addToCart(itemId);
+                });
+            });
+        }
+
+        // نمایش شعبه‌ها
+        function displayBranches() {
+            branchesGrid.innerHTML = '';
+            
+            branches.forEach(branch => {
+                const branchElement = document.createElement('div');
+                branchElement.className = `branch-card ${selectedBranch && selectedBranch.id === branch.id ? 'selected-branch' : ''}`;
+                branchElement.innerHTML = `
+                    <img src="${branch.image}" alt="${branch.name[currentLanguage]}" class="branch-image">
+                    <div class="branch-info">
+                        <h3 class="branch-name">${branch.name[currentLanguage]}</h3>
+                        <div class="branch-details">
+                            <p><i class="fas fa-map-marker-alt"></i> ${branch.address[currentLanguage]}</p>
+                            <p><i class="fas fa-phone"></i> ${branch.phone}</p>
+                            <p><i class="fas fa-shopping-cart"></i> ${translations[currentLanguage].ordersCount || 'تعداد سفارشات'}: ${branch.ordersCount}</p>
+                        </div>
+                        <button class="select-branch-btn" data-id="${branch.id}">
+                            <i class="fas fa-check"></i>
+                            ${selectedBranch && selectedBranch.id === branch.id ? 
+                                (translations[currentLanguage].selected || 'انتخاب شده') : 
+                                (translations[currentLanguage].selectBranch || 'انتخاب این شعبه')}
+                        </button>
+                    </div>
+                `;
+                branchesGrid.appendChild(branchElement);
+            });
+            
+            // اضافه کردن ایونت به دکمه‌های انتخاب شعبه
+            document.querySelectorAll('.select-branch-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const branchId = parseInt(e.target.closest('.select-branch-btn').getAttribute('data-id'));
+                    selectBranch(branchId);
+                });
+            });
+            
+            // به‌روزرسانی لیست انتخاب شعبه در فرم سفارش
+            updateBranchSelect();
+        }
+
+        // انتخاب شعبه
+        function selectBranch(branchId) {
+            selectedBranch = branches.find(branch => branch.id === branchId);
+            displayBranches();
+            showNotification(`${translations[currentLanguage].branchSelected || 'شعبه انتخاب شد'}: ${selectedBranch.name[currentLanguage]}`, 'success');
+        }
+
+        // به‌روزرسانی لیست انتخاب شعبه در فرم سفارش
+        function updateBranchSelect() {
+            selectedBranchSelect.innerHTML = '<option value="" data-i18n="selectBranch">شعبه مورد نظر را انتخاب کنید</option>';
+            
+            branches.forEach(branch => {
+                const option = document.createElement('option');
+                option.value = branch.id;
+                option.textContent = branch.name[currentLanguage];
+                if (selectedBranch && selectedBranch.id === branch.id) {
+                    option.selected = true;
+                }
+                selectedBranchSelect.appendChild(option);
+            });
+            
+            // به‌روزرسانی متن placeholder
+            const selectBranchOption = selectedBranchSelect.querySelector('option[value=""]');
+            if (selectBranchOption) {
+                selectBranchOption.textContent = translations[currentLanguage].selectBranch || 'شعبه مورد نظر را انتخاب کنید';
+            }
+        }
+
+        // نمایش محصولات در پنل مدیریت
+        function displayProductsInAdmin() {
+            productsTableBody.innerHTML = '';
+            
+            menuItems.forEach(item => {
+                const statusText = item.active ? (translations[currentLanguage].active || 'فعال') : (translations[currentLanguage].inactive || 'غیرفعال');
+                const statusClass = item.active ? 'status-delivered' : 'status-pending';
+                
+                const productRow = document.createElement('tr');
+                productRow.innerHTML = `
+                    <td><img src="${item.image}" alt="${item.name[currentLanguage]}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
+                    <td>${item.name[currentLanguage]}</td>
+                    <td>${getCategoryName(item.category)}</td>
+                    <td>${item.price} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${item.id}">${translations[currentLanguage].edit || 'ویرایش'}</button>
+                        <button class="action-btn ${item.active ? 'btn-delete' : 'btn-update'}" data-id="${item.id}">
+                            ${item.active ? (translations[currentLanguage].deactivate || 'غیرفعال') : (translations[currentLanguage].activate || 'فعال')}
+                        </button>
+                    </td>
+                `;
+                productsTableBody.appendChild(productRow);
+            });
+            
+            // اضافه کردن ایونت به دکمه‌های مدیریت محصولات
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    editProduct(itemId);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete, .btn-update').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    toggleProductStatus(itemId);
+                });
+            });
+        }
+
+        // نمایش شعبه‌ها در پنل مدیریت
+        function displayBranchesInAdmin() {
+            branchesTableBody.innerHTML = '';
+            
+            branches.forEach(branch => {
+                const statusText = branch.active ? (translations[currentLanguage].active || 'فعال') : (translations[currentLanguage].inactive || 'غیرفعال');
+                const statusClass = branch.active ? 'status-delivered' : 'status-pending';
+                
+                const branchRow = document.createElement('tr');
+                branchRow.innerHTML = `
+                    <td>${branch.name[currentLanguage]}</td>
+                    <td>${branch.address[currentLanguage]}</td>
+                    <td>${branch.phone}</td>
+                    <td>${branch.ordersCount}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${branch.id}">${translations[currentLanguage].edit || 'ویرایش'}</button>
+                        <button class="action-btn ${branch.active ? 'btn-delete' : 'btn-update'}" data-id="${branch.id}">
+                            ${branch.active ? (translations[currentLanguage].deactivate || 'غیرفعال') : (translations[currentLanguage].activate || 'فعال')}
+                        </button>
+                    </td>
+                `;
+                branchesTableBody.appendChild(branchRow);
+            });
+            
+            // اضافه کردن ایونت به دکمه‌های مدیریت شعبه‌ها
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const branchId = parseInt(e.target.getAttribute('data-id'));
+                    editBranch(branchId);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete, .btn-update').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const branchId = parseInt(e.target.getAttribute('data-id'));
+                    toggleBranchStatus(branchId);
+                });
+            });
+        }
+
+        // نمایش سفارشات در پنل مدیریت
+        function displayOrdersInAdmin() {
+            ordersTableBody.innerHTML = '';
+            recentOrdersTable.innerHTML = '';
+            
+            // نمایش سفارشات اخیر در داشبورد
+            const recentOrders = orders.slice(0, 4);
+            recentOrders.forEach(order => {
+                const statusText = getStatusText(order.status);
+                const statusClass = `status-${order.status}`;
+                
+                const orderRow = document.createElement('tr');
+                orderRow.innerHTML = `
+                    <td>${order.code}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.branch}</td>
+                    <td>${order.total} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</td>
+                    <td>${order.date}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                `;
+                recentOrdersTable.appendChild(orderRow);
+            });
+            
+            // نمایش همه سفارشات در تب مدیریت سفارشات
+            orders.forEach(order => {
+                const statusText = getStatusText(order.status);
+                const statusClass = `status-${order.status}`;
+                const itemsText = order.items.map(item => `${item.name} (${item.quantity})`).join('، ');
+                
+                const orderRow = document.createElement('tr');
+                orderRow.innerHTML = `
+                    <td>${order.code}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.branch}</td>
+                    <td>${itemsText}</td>
+                    <td>${order.total} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</td>
+                    <td>${order.date}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${order.id}">${translations[currentLanguage].details || 'جزئیات'}</button>
+                        <button class="action-btn btn-update" data-id="${order.id}">${translations[currentLanguage].updateStatus || 'بروزرسانی وضعیت'}</button>
+                    </td>
+                `;
+                ordersTableBody.appendChild(orderRow);
+            });
+        }
+
+        // نمایش کاربران در پنل مدیریت
+        function displayUsersInAdmin() {
+            usersTableBody.innerHTML = '';
+            
+            users.forEach(user => {
+                const userRow = document.createElement('tr');
+                userRow.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.joinDate}</td>
+                    <td>${user.ordersCount}</td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${user.id}">${translations[currentLanguage].edit || 'ویرایش'}</button>
+                        <button class="action-btn btn-delete" data-id="${user.id}">${translations[currentLanguage].delete || 'حذف'}</button>
+                    </td>
+                `;
+                usersTableBody.appendChild(userRow);
+            });
+        }
+
+        // بروزرسانی آمار داشبورد
+        function updateDashboardStats() {
+            // محاسبه آمار
+            const today = new Date().toLocaleDateString('fa-IR');
+            const todayOrdersCount = orders.filter(order => order.date === today).length;
+            const todayRevenueTotal = orders
+                .filter(order => order.date === today)
+                .reduce((sum, order) => sum + order.total, 0);
+            const activeProductsCount = menuItems.filter(item => item.active).length;
+            
+            // بروزرسانی مقادیر
+            todayOrders.textContent = todayOrdersCount;
+            todayRevenue.textContent = todayRevenueTotal.toLocaleString();
+            newUsers.textContent = users.length;
+            activeProducts.textContent = activeProductsCount;
+        }
+
+        // دریافت نام دسته‌بندی
+        function getCategoryName(category) {
+            const categories = {
+                'burgers': translations[currentLanguage].burgers || 'برگرها',
+                'pizzas': translations[currentLanguage].pizzas || 'پیتزاها',
+                'sandwiches': translations[currentLanguage].sandwiches || 'ساندویچ‌ها',
+                'kababs': translations[currentLanguage].kababs || 'کباب‌ها',
+                'drinks': translations[currentLanguage].drinks || 'نوشیدنی‌ها'
+            };
+            return categories[category] || category;
+        }
+
+        // دریافت متن وضعیت
+        function getStatusText(status) {
+            const statuses = {
+                'pending': translations[currentLanguage].pending || 'در انتظار تایید',
+                'preparing': translations[currentLanguage].preparing || 'در حال آماده‌سازی',
+                'ready': translations[currentLanguage].ready || 'آماده تحویل',
+                'delivered': translations[currentLanguage].delivered || 'تحویل شده'
+            };
+            return statuses[status] || status;
+        }
+
+        // افزودن محصول به سبد خرید
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${item.name[currentLanguage]} ${translations[currentLanguage].addedToCart || 'به سبد خرید اضافه شد'}`, 'success');
+        }
+
+        // حذف محصول از سبد خرید
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+            showNotification(translations[currentLanguage].removedFromCart || 'محصول از سبد خرید حذف شد', 'info');
+        }
+
+        // تغییر تعداد محصول در سبد خرید
+        function updateQuantity(itemId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(itemId);
+                return;
+            }
+            
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCart();
+            }
+        }
+
+        // به‌روزرسانی نمایش سبد خرید
+        function updateCart() {
+            // به‌روزرسانی تعداد محصولات در آیکون سبد
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // به‌روزرسانی لیست محصولات در سبد
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>${translations[currentLanguage].emptyCart || 'سبد خرید شما خالی است'}</p>
+                    </div>
+                `;
+                cartTotal.textContent = `0 ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}`;
+                checkoutBtn.disabled = true;
+                return;
+            }
+            
+            checkoutBtn.disabled = false;
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name[currentLanguage]}</div>
+                        <div class="cart-item-price">${item.price} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                        <span class="quantity-value">${item.quantity}</span>
+                        <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                    </div>
+                    <div class="cart-item-total">${itemTotal} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}</div>
+                    <button class="remove-item" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            cartTotal.textContent = `${totalPrice} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}`;
+            orderTotal.textContent = `${totalPrice} ${currentLanguage === 'en' ? 'AFN' : 'افغانی'}`;
+            
+            // اضافه کردن ایونت به دکمه‌های تغییر تعداد و حذف
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.closest('.decrease').getAttribute('data-id'));
+                    const item = cart.find(i => i.id === itemId);
+                    if (item) {
+                        updateQuantity(itemId, item.quantity - 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.closest('.increase').getAttribute('data-id'));
+                    const item = cart.find(i => i.id === itemId);
+                    if (item) {
+                        updateQuantity(itemId, item.quantity + 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
+                    removeFromCart(itemId);
+                });
+            });
+        }
+
+        // نمایش نوتیفیکیشن
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'warning') icon = 'exclamation-triangle';
+            if (type === 'error') icon = 'times-circle';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${icon}"></i>
+                </div>
+                <div class="notification-content">
+                    <h4>${translations[currentLanguage].systemNotification || 'اعلان سیستم'}</h4>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            notificationPanel.appendChild(notification);
+            
+            // حذف نوتیفیکیشن بعد از 5 ثانیه
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(-100%)';
+                setTimeout(() => {
+                    if (notificationPanel.contains(notification)) {
+                        notificationPanel.removeChild(notification);
+                    }
+                }, 500);
+            }, 5000);
+        }
+
+        // تولید کد سفارش تصادفی
+        function generateOrderCode() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            let code = 'RB-';
+            
+            for (let i = 0; i < 2; i++) {
+                code += letters.charAt(Math.floor(Math.random() * letters.length));
+            }
+            
+            for (let i = 0; i < 3; i++) {
+                code += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            }
+            
+            return code;
+        }
+
+        // ارسال اعلان به فروشگاه
+        function sendOrderToStore(orderData) {
+            // اضافه کردن سفارش به لیست سفارشات
+            orders.unshift({
+                id: orders.length + 1,
+                code: orderData.orderCode,
+                customer: orderData.customerName,
+                branch: orderData.branchName,
+                items: cart.map(item => ({
+                    name: item.name[currentLanguage],
+                    quantity: item.quantity,
+                    price: item.price
+                })),
+                total: orderData.total,
+                date: new Date().toLocaleDateString('fa-IR'),
+                status: 'pending',
+                address: orderData.address
+            });
+            
+            // افزایش تعداد سفارشات شعبه
+            const branch = branches.find(b => b.id === orderData.branchId);
+            if (branch) {
+                branch.ordersCount++;
+            }
+            
+            // بروزرسانی نمایش سفارشات در پنل مدیریت
+            if (isAdmin) {
+                displayOrdersInAdmin();
+                displayBranchesInAdmin();
+                updateDashboardStats();
+            }
+            
+            // نمایش نوتیفیکیشن
+            showNotification(`${translations[currentLanguage].orderSentToKitchen || 'سفارش به آشپزخانه ارسال شد'} ${orderData.orderCode}`, 'success');
+            
+            // ارسال گزارش به تلگرام
+            sendTelegramNotification(orderData);
+        }
+
+        // ارسال گزارش به تلگرام
+        function sendTelegramNotification(orderData) {
+            // این بخش برای ارسال گزارش به تلگرام است
+            // در اینجا باید توکن ربات تلگرام و چت آیدی مربوط به هر شعبه را قرار دهید
+            
+            const telegramTokens = {
+                1: "TOKEN_FOR_BRANCH_1", // توکن ربات برای شعبه شهر نو
+                2: "TOKEN_FOR_BRANCH_2", // توکن ربات برای شعبه تایمنی
+                3: "TOKEN_FOR_BRANCH_3"  // توکن ربات برای شعبه خیرخانه
+            };
+            
+            const chatIds = {
+                1: "CHAT_ID_FOR_BRANCH_1", // چت آیدی برای شعبه شهر نو
+                2: "CHAT_ID_FOR_BRANCH_2", // چت آیدی برای شعبه تایمنی
+                3: "CHAT_ID_FOR_BRANCH_3"  // چت آیدی برای شعبه خیرخانه
+            };
+            
+            const branchId = orderData.branchId;
+            const token = telegramTokens[branchId];
+            const chatId = chatIds[branchId];
+            
+            if (!token || !chatId) {
+                console.log("توکن تلگرام یا چت آیدی برای این شعبه تنظیم نشده است");
+                return;
+            }
+            
+            // ساخت پیام برای تلگرام
+            const message = `
+            🍔 سفارش جدید رومل برگر 🍔
+            
+            کد سفارش: ${orderData.orderCode}
+            مشتری: ${orderData.customerName}
+            شماره تماس: ${orderData.customerPhone}
+            شعبه: ${orderData.branchName}
+            آدرس: ${orderData.address}
+            مبلغ کل: ${orderData.total} افغانی
+            
+            محصولات:
+            ${cart.map(item => `- ${item.name[currentLanguage]} (${item.quantity} عدد) - ${item.price * item.quantity} افغانی`).join('\n')}
+            
+            زمان ثبت سفارش: ${orderData.orderTime}
+            `;
+            
+            // ارسال درخواست به تلگرام (این بخش در محیط واقعی کار می‌کند)
+            // fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         chat_id: chatId,
+            //         text: message
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('پیام به تلگرام ارسال شد:', data);
+            // })
+            // .catch(error => {
+            //     console.error('خطا در ارسال پیام به تلگرام:', error);
+            // });
+            
+            // برای نمایش در کنسول (در محیط توسعه)
+            console.log("پیام تلگرام برای شعبه " + orderData.branchName + ":");
+            console.log(message);
+        }
+
+        // مدیریت وضعیت کاربر
+        function updateUserStatus() {
+            if (currentUser) {
+                // بروزرسانی منوی موبایل
+                mobileUserInfo.classList.add('active');
+                mobileUserName.textContent = currentUser.name;
+                mobileUserActions.style.display = 'none';
+                mobileLoggedInActions.style.display = 'flex';
+                
+                // پر کردن خودکار فرم سفارش با اطلاعات کاربر
+                document.getElementById('customerName').value = currentUser.name;
+                document.getElementById('customerPhone').value = currentUser.phone;
+            } else {
+                // بروزرسانی منوی موبایل
+                mobileUserInfo.classList.remove('active');
+                mobileUserActions.style.display = 'flex';
+                mobileLoggedInActions.style.display = 'none';
+            }
+        }
+
+        // تغییر وضعیت محصول
+        function toggleProductStatus(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (item) {
+                item.active = !item.active;
+                displayProductsInAdmin();
+                displayMenuItems();
+                updateDashboardStats();
+                showNotification(`${translations[currentLanguage].productStatusChanged || 'وضعیت محصول'} "${item.name[currentLanguage]}" ${translations[currentLanguage].changed || 'تغییر کرد'}`, 'success');
+            }
+        }
+
+        // تغییر وضعیت شعبه
+        function toggleBranchStatus(branchId) {
+            const branch = branches.find(b => b.id === branchId);
+            if (branch) {
+                branch.active = !branch.active;
+                displayBranchesInAdmin();
+                displayBranches();
+                showNotification(`${translations[currentLanguage].branchStatusChanged || 'وضعیت شعبه'} "${branch.name[currentLanguage]}" ${translations[currentLanguage].changed || 'تغییر کرد'}`, 'success');
+            }
+        }
+
+        // ویرایش محصول
+        function editProduct(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (item) {
+                showNotification(`${translations[currentLanguage].editProduct || 'ویرایش محصول'} "${item.name[currentLanguage]}"`, 'info');
+                // در اینجا می‌توانید یک مودال برای ویرایش محصول باز کنید
+            }
+        }
+
+        // ویرایش شعبه
+        function editBranch(branchId) {
+            const branch = branches.find(b => b.id === branchId);
+            if (branch) {
+                showNotification(`${translations[currentLanguage].editBranch || 'ویرایش شعبه'} "${branch.name[currentLanguage]}"`, 'info');
+                // در اینجا می‌توانید یک مودال برای ویرایش شعبه باز کنید
+            }
+        }
+
+        // تغییر تب‌های مدیریت
+        function switchAdminTab(tabName) {
+            adminTabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            adminContents.forEach(content => {
+                if (content.id === `${tabName}Content`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+
+        // باز کردن منوی موبایل
+        function openMobileMenu() {
+            mobileNav.classList.add('active');
+        }
+
+        // بستن منوی موبایل
+        function closeMobileMenuFunc() {
+            mobileNav.classList.remove('active');
+        }
+
+        // ایونت‌ها
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showNotification(translations[currentLanguage].emptyCartWarning || 'سبد خرید شما خالی است', 'warning');
+                return;
+            }
+            
+            if (!selectedBranch) {
+                showNotification(translations[currentLanguage].selectBranchFirst || 'لطفاً ابتدا یک شعبه انتخاب کنید', 'warning');
+                return;
+            }
+            
+            cartModal.style.display = 'none';
+            orderForm.style.display = 'block';
+        });
+
+        backToCart.addEventListener('click', () => {
+            orderForm.style.display = 'none';
+            cartModal.style.display = 'flex';
+        });
+
+        orderFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!selectedBranch) {
+                showNotification(translations[currentLanguage].selectBranchFirst || 'لطفاً ابتدا یک شعبه انتخاب کنید', 'error');
+                return;
+            }
+            
+            // جمع‌آوری اطلاعات سفارش
+            const orderData = {
+                orderCode: generateOrderCode(),
+                customerName: document.getElementById('customerName').value,
+                customerPhone: document.getElementById('customerPhone').value,
+                branchId: selectedBranch.id,
+                branchName: selectedBranch.name[currentLanguage],
+                province: document.getElementById('province').value,
+                address: document.getElementById('customerAddress').value,
+                notes: document.getElementById('orderNotes').value,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                orderTime: new Date().toLocaleString('fa-IR')
+            };
+            
+            // ارسال اعلان به فروشگاه
+            sendOrderToStore(orderData);
+            
+            // نمایش پیام تایید
+            document.getElementById('orderCode').textContent = orderData.orderCode;
+            document.getElementById('orderBranch').textContent = orderData.branchName;
+            document.getElementById('branchPhone').textContent = selectedBranch.phone;
+            orderForm.style.display = 'none';
+            orderConfirmation.style.display = 'block';
+        });
+
+        newOrderBtn.addEventListener('click', () => {
+            // ریست کردن سیستم برای سفارش جدید
+            cart = [];
+            updateCart();
+            orderFormElement.reset();
+            orderConfirmation.style.display = 'none';
+            showNotification(translations[currentLanguage].newOrderReady || 'می‌توانید سفارش جدید خود را ثبت کنید', 'info');
+        });
+
+        // فیلتر کردن بر اساس دسته‌بندی
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentCategory = button.getAttribute('data-category');
+                displayMenuItems();
+                
+                // اسکرول به بخش منو
+                document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // مدیریت فرم ورود
+        mobileLoginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+            switchLoginTab('login');
+            closeMobileMenuFunc();
+        });
+
+        mobileRegisterBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+            switchLoginTab('register');
+            closeMobileMenuFunc();
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        // تغییر تب‌های فرم ورود
+        function switchLoginTab(tabName) {
+            loginTabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            if (tabName === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+            }
+        }
+
+        loginTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchLoginTab(tab.getAttribute('data-tab'));
+            });
+        });
+
+        // مدیریت فرم ورود
+        loginFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // بررسی اطلاعات ورود ادمین
+            if (email === 'admin@gmail.com' && password === 'admin123') {
+                currentUser = {
+                    name: translations[currentLanguage].adminUser || 'مدیر سیستم',
+                    email: email,
+                    phone: '0700000000'
+                };
+                isAdmin = true;
+                updateUserStatus();
+                loginModal.style.display = 'none';
+                showNotification(translations[currentLanguage].adminLoginSuccess || 'با موفقیت به عنوان مدیر وارد شدید!', 'success');
+                loginFormElement.reset();
+                return;
+            }
+            
+            // شبیه‌سازی ورود کاربر عادی
+            if (email && password) {
+                currentUser = {
+                    name: translations[currentLanguage].sampleUser || 'کاربر نمونه',
+                    email: email,
+                    phone: '0712345678'
+                };
+                isAdmin = false;
+                updateUserStatus();
+                loginModal.style.display = 'none';
+                showNotification(translations[currentLanguage].loginSuccess || 'با موفقیت وارد شدید!', 'success');
+                loginFormElement.reset();
+            } else {
+                showNotification(translations[currentLanguage].fillAllFields || 'لطفاً تمام فیلدها را پر کنید', 'error');
+            }
+        });
+
+        // مدیریت فرم ثبت نام
+        registerFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showNotification(translations[currentLanguage].passwordMismatch || 'رمز عبور و تکرار آن مطابقت ندارند', 'error');
+                return;
+            }
+            
+            if (name && email && phone && password) {
+                currentUser = {
+                    name: name,
+                    email: email,
+                    phone: phone
+                };
+                isAdmin = false;
+                
+                // اضافه کردن کاربر جدید به لیست کاربران
+                users.push({
+                    id: users.length + 1,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    joinDate: new Date().toLocaleDateString('fa-IR'),
+                    ordersCount: 0
+                });
+                
+                updateUserStatus();
+                loginModal.style.display = 'none';
+                showNotification(translations[currentLanguage].registerSuccess || 'حساب کاربری با موفقیت ایجاد شد!', 'success');
+                registerFormElement.reset();
+                switchLoginTab('login');
+                
+                // بروزرسانی آمار
+                updateDashboardStats();
+                displayUsersInAdmin();
+            } else {
+                showNotification(translations[currentLanguage].fillAllFields || 'لطفاً تمام فیلدها را پر کنید', 'error');
+            }
+        });
+
+        // مدیریت خروج کاربر
+        mobileLogoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            isAdmin = false;
+            updateUserStatus();
+            adminPanel.style.display = 'none';
+            showNotification(translations[currentLanguage].logoutSuccess || 'با موفقیت خارج شدید', 'info');
+            closeMobileMenuFunc();
+        });
+
+        // باز کردن پنل مدیریت
+        mobileAdminBtn.addEventListener('click', () => {
+            if (!currentUser) {
+                showNotification(translations[currentLanguage].loginFirst || 'لطفاً ابتدا وارد شوید', 'warning');
+                closeMobileMenuFunc();
+                return;
+            }
+            
+            if (!isAdmin) {
+                showNotification(translations[currentLanguage].noAdminAccess || 'شما دسترسی ادمین ندارید', 'error');
+                closeMobileMenuFunc();
+                return;
+            }
+            
+            adminPanel.style.display = 'block';
+            displayOrdersInAdmin();
+            displayProductsInAdmin();
+            displayUsersInAdmin();
+            displayBranchesInAdmin();
+            updateDashboardStats();
+            closeMobileMenuFunc();
+        });
+
+        mobileUserAdminBtn.addEventListener('click', () => {
+            if (!isAdmin) {
+                showNotification(translations[currentLanguage].noAdminAccess || 'شما دسترسی ادمین ندارید', 'error');
+                closeMobileMenuFunc();
+                return;
+            }
+            
+            adminPanel.style.display = 'block';
+            displayOrdersInAdmin();
+            displayProductsInAdmin();
+            displayUsersInAdmin();
+            displayBranchesInAdmin();
+            updateDashboardStats();
+            closeMobileMenuFunc();
+        });
+
+        // بستن پنل مدیریت
+        closeAdmin.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        // تغییر تب‌های مدیریت
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchAdminTab(tab.getAttribute('data-tab'));
+            });
+        });
+
+        // افزودن محصول جدید
+        addProductBtn.addEventListener('click', () => {
+            showNotification(translations[currentLanguage].addProduct || 'افزودن محصول جدید', 'info');
+            // در اینجا می‌توانید یک مودال برای افزودن محصول باز کنید
+        });
+
+        // افزودن شعبه جدید
+        addBranchBtn.addEventListener('click', () => {
+            showNotification(translations[currentLanguage].addBranch || 'افزودن شعبه جدید', 'info');
+            // در اینجا می‌توانید یک مودال برای افزودن شعبه باز کنید
+        });
+
+        // مدیریت منوی موبایل
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+
+        // تغییر زبان
+        languageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.getAttribute('data-lang');
+                changeLanguage(lang);
+                closeMobileMenuFunc();
+            });
+        });
+
+        // بستن مودال با کلیک خارج از آن
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === mobileNav) {
+                closeMobileMenuFunc();
+            }
+        });
+
+        // مقداردهی اولیه
+        displayMenuItems();
+        displayBranches();
+        updateCart();
+        updateUserStatus();
+        updateDashboardStats();
+        displayUsersInAdmin();
+        displayBranchesInAdmin();
+        
+        // انتخاب شعبه پیش‌فرض
+        if (branches.length > 0) {
+            selectBranch(branches[0].id);
+        }
+        
+        // نمایش پیام خوشامدگویی
+        setTimeout(() => {
+            showNotification(translations[currentLanguage].welcomeMessage || 'به سیستم سفارش آنلاین رومل برگر خوش آمدید!', 'success');
+        }, 1000);
+    </script>
+</body>
+</html>
